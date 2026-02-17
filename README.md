@@ -111,10 +111,12 @@ jobs:
 3. Secrets and variables → Actions
 4. Click New repository secret
 5. Add the following:
-```
-Name	  -> AWS_ROLE_ARN
-Secret	  -> Your Role ARN
-```
+
+   * Name   -> AWS_ROLE_ARN
+   * Secret	-> Your Role ARN
+   ```
+   Example : arn:aws:iam::637423214760:role/github-oidc-role
+   ```
 6. Click Add secret
 
  * Now your AWS Role ARN is securely stored in GitHub Actions secrets.
