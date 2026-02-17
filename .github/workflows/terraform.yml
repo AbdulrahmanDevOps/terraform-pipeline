@@ -1,32 +1,52 @@
-name: Terraform Destroy
+name: Terraform Auto Deploy (OIDC)
 
 on:
-  workflow_dispatch:   # 👈 Manual trigger button
+  push:
+    branches:
+      - main
 
 jobs:
-  destroy:
+  terraform:
+    name: Terraform
     runs-on: ubuntu-latest
 
     permissions:
-      id-token: write
+      id-token: write     # REQUIRED for OIDC
       contents: read
 
-    steps:
-      - uses: actions/checkout@v4
+    env:
+      AWS_REGION: us-east-1
 
-      - name: Configure AWS Credentials
+    steps:
+      # Checkout repository
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # Configure AWS credentials using OIDC
+      - name: Configure AWS Credentials (OIDC)
         uses: aws-actions/configure-aws-credentials@v2
         with:
           role-to-assume: arn:aws:iam::637423214760:role/test_2
           aws-region: us-east-1
 
+      # Install Terraform
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v3
         with:
           terraform_version: 1.14.0
 
+      # Terraform Init
       - name: Terraform Init
         run: terraform init
 
-      - name: Terraform Destroy
-        run: terraform destroy -auto-approve
+      # Terraform Validate
+      - name: Terraform Validate
+        run: terraform validate
+
+      # Terraform Plan
+      - name: Terraform Plan
+        run: terraform plan
+
+      # Terraform Apply (Auto apply on push to main)
+      - name: Terraform Apply
+        run: terraform apply -auto-approve
