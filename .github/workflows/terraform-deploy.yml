@@ -13,10 +13,7 @@ jobs:
     permissions:
       id-token: write     # REQUIRED for OIDC
       contents: read
-
-    env:
-      AWS_REGION: us-east-1
-
+      
     steps:
       # Checkout repository
       - name: Checkout code
