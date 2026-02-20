@@ -1,4 +1,4 @@
-# GitHub OIDC → AWS → Terraform Deployment
+## GitHub OIDC → AWS → Terraform Deployment
 
 ## Step 1: Create GitHub Repository
 
