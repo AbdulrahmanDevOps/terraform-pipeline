@@ -4,7 +4,9 @@ on:
   push:
     branches:
       - main
-
+permissions:
+  contents: read
+  
 jobs:
   terraform:
     name: Terraform
@@ -23,7 +25,7 @@ jobs:
       - name: Configure AWS Credentials (OIDC)
         uses: aws-actions/configure-aws-credentials@v2
         with:
-          role-to-assume: arn:aws:iam::637423214760:role/test_2
+          role-to-assume: arn:aws:iam::637423467682:role/test
           aws-region: us-east-1
 
       # Install Terraform
